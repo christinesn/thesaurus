@@ -1,7 +1,7 @@
 import './Nyms.css';
 import convertItTags from './convertItTags';
 
-function Nyms ({ data, type = "syn" }) {
+function Nyms ({ data, type = "syn", handleSearch }) {
     const list = type === "syn" ? "syn_list" : "ant_list";
 
     const meanings = (() => {
@@ -47,7 +47,13 @@ function Nyms ({ data, type = "syn" }) {
                         />
                         <div className="nyms">
                             {meaning.nyms.map((nym, nym_i) => (
-                                <span className="nym-entry" key={nym_i}>{nym}</span>
+                                <button
+                                    className="nym-entry"
+                                    key={nym_i}
+                                    onClick={() => handleSearch(nym)}
+                                >
+                                    {nym}
+                                </button>
                             ))}
                         </div>
                     </div>

@@ -1,12 +1,18 @@
 import './WordNotFound.css';
 
-function WordNotFound ({ data }) {
+function WordNotFound ({ data, handleSearch }) {
     return (
         <div>
             We couldn't find that word. Did you mean one of these?
             <div>
                 {data.map((word, i) => (
-                    <span className="suggestion" key={i}>{word}</span>
+                    <button
+                        className="suggestion"
+                        key={i}
+                        onClick={() => handleSearch(word)}
+                    >
+                        {word}
+                    </button>
                 ))}
             </div>
         </div>
