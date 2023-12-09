@@ -1,0 +1,27 @@
+.nym-entry {
+    line-height: 150%;
+}
+
+.nym-entry:after {
+    content: ", "
+}
+
+.nym-entry:last-of-type:after {
+    content: ""
+}
+
+.meaning-section {
+    margin-bottom: 1em;
+}
+
+.meaning-section:last-of-type {
+    margin-bottom: 0;
+}
+
+.meaning {
+    margin-bottom: 0.5em;
+}
+
+.nyms {
+    margin-left: 1em;
+}
