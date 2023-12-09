@@ -1,0 +1,7 @@
+.suggestion:after {
+    content: ", ";
+}
+
+.suggestion:last-of-type:after {
+    content: "";
+}

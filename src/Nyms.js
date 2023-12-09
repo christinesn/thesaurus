@@ -30,6 +30,10 @@ function Nyms ({ data, type = "syn" }) {
         return entries.filter(entry => entry !== null);
     })();
 
+    if (meanings.length === 0) {
+        return null
+    }
+
     return (
         <article>
             <h2>{type === "syn" ? "Synonyms" : "Antonyms"}</h2>
