@@ -1,33 +1,36 @@
 import './Nyms.css';
-import convertItTags from './convertItTags';
+import convertItTags from './helpers/convertItTags';
 
 function Nyms ({ data, type = "syn", handleSearch }) {
     const list = type === "syn" ? "syn_list" : "ant_list";
 
     const meanings = (() => {
-        const entries = data[0].def[0].sseq.map(entry => {
-            const def = convertItTags(entry[0][1].dt[0][1]);
-            let nymsList = entry[0][1][list];
-
-            if (!nymsList) {
-                if (type === "syn") {
-                    nymsList = entry[0][1].sim_list
-
-                    if (!nymsList) return null
-                } else {
-                    return null
+        const entries = data.map(meaning => {
+            return meaning.def[0].sseq.map(entry => {
+                const def = convertItTags(entry[0][1].dt[0][1]);
+                let nymsList = entry[0][1][list];
+    
+                if (!nymsList) {
+                    if (type === "syn") {
+                        nymsList = entry[0][1].sim_list
+    
+                        if (!nymsList) return null
+                    } else {
+                        return null
+                    }
                 }
-            }
-
-            const nyms = nymsList.flat().map(nym => nym.wd);
-
-            return {
-                def,
-                nyms
-            }
+    
+                const nyms = nymsList.flat().map(nym => nym.wd);
+    
+                return {
+                    def,
+                    nyms,
+                    partOfSpeech: meaning.fl
+                }
+            })
         })
 
-        return entries.filter(entry => entry !== null);
+        return entries.flat().filter(entry => entry !== null);
     })();
 
     if (meanings.length === 0) {
@@ -42,7 +45,7 @@ function Nyms ({ data, type = "syn", handleSearch }) {
                     <div key={i} className="meaning-section">
                         <div className="meaning"
                             dangerouslySetInnerHTML={{
-                                __html: meaning.def
+                                __html: `<span>(${meaning.partOfSpeech})</span> ${meaning.def}`
                             }}
                         />
                         <div className="nyms">

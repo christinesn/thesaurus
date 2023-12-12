@@ -1,6 +1,6 @@
 import './App.css';
 import { useRef, useState, Fragment } from 'react';
-import fetchData from './fetchData';
+import fetchData from './helpers/fetchData';
 import singleDef from './sampleData/singleDef';
 import multipleDefs from './sampleData/multipleDefs';
 import Word from './Word';
@@ -32,7 +32,9 @@ function App () {
             const response = await fetchData(input)
             setData(response)
 
-            console.log("response:", response)
+            if (process.env.NODE_ENV === "development") {
+                console.log("response:", response)
+            }
 
             const wordNotFound = !response[0].hwi;
 
@@ -49,7 +51,9 @@ function App () {
 
         setLoading(false)
 
-        console.log("loading:", loading, "\nnot found:", notFound, "\noffensive:", offensive, "\nerror:", error)
+        if (process.env.NODE_ENV === "development") {
+            console.log("loading:", loading, "\nnot found:", notFound, "\noffensive:", offensive, "\nerror:", error)
+        }
     }
 
     async function handleSubmit (e) {

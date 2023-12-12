@@ -1,25 +1,33 @@
 import './Word.css';
-import convertItTags from './convertItTags';
+import convertItTags from './helpers/convertItTags';
 
 function Word ({ data }) {
     const word = data[0].hwi.hw;
-    const partOfSpeech = data[0].fl;
 
-    const definitions = (() => {
-        return data[0].def[0].sseq.map(def => {
-            const entry = def[0][1].dt
-
-            const sentence = (() => {
-                if (entry[1]) {
-                    return convertItTags(entry[1][1][0].t)
-                } else {
-                    return null
-                }
-            })();
+    const meanings = (() => {
+        return data.map(meaning => {
+            if (process.env.NODE_ENV === "development") {
+                console.log("meaning:", meaning)
+            }
 
             return {
-                def: convertItTags(entry[0][1]),
-                sentence
+                partOfSpeech: meaning.fl,
+                definitions: meaning.def[0].sseq.map((def, i) => {
+                    const entry = def[0][1].dt
+        
+                    const sentence = (() => {
+                        if (entry[1]) {
+                            return convertItTags(entry[1][1][0].t)
+                        } else {
+                            return null
+                        }
+                    })();
+        
+                    return {
+                        def: convertItTags(entry[0][1]),
+                        sentence
+                    }
+                })
             }
         })
     })();
@@ -28,23 +36,27 @@ function Word ({ data }) {
         <article>
             <h2>Word</h2>
             <h3>{word}</h3>
-            <div>{partOfSpeech}</div>
-            <ol>
-                {definitions.map((def, i) => (
-                    <li key={i}>
-                        <span
-                            dangerouslySetInnerHTML={{
-                                __html: def.def
-                            }}
-                        />
-                        <div className="sample-sentence"
-                            dangerouslySetInnerHTML={{
-                                __html: def.sentence
-                            }}
-                        />
-                    </li>
-                ))}
-            </ol>
+            {meanings.map((meaning, i) => (
+                <div key={i}>
+                    <div>{meaning.partOfSpeech}</div>
+                    <ol>
+                        {meaning.definitions.map((def, i) => (
+                            <li key={i}>
+                                <span
+                                    dangerouslySetInnerHTML={{
+                                        __html: def.def
+                                    }}
+                                />
+                                <div className="sample-sentence"
+                                    dangerouslySetInnerHTML={{
+                                        __html: def.sentence
+                                    }}
+                                />
+                            </li>
+                        ))}
+                    </ol>
+                </div>
+            ))}
         </article>
     )
 }
