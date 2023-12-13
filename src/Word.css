@@ -1,4 +1,15 @@
-.sample-sentence {
-    font-size: 0.8em;
-    margin: 0.5em 1em;
+li {
+    margin-bottom: 1em;
+}
+
+li:last-of-type {
+    margin-bottom: 0;
+}
+
+.meaning {
+    margin-bottom: 0.5em;
+}
+
+.part-of-speech:after {
+    content: " ";
 }

@@ -1,63 +1,59 @@
 import './Word.css';
-import convertItTags from './helpers/convertItTags';
+import Nyms from './Nyms';
 
-function Word ({ data }) {
+function Word ({ data, handleSearch }) {
     const word = data[0].hwi.hw;
 
-    const meanings = (() => {
-        return data.map(meaning => {
-            if (process.env.NODE_ENV === "development") {
-                console.log("meaning:", meaning)
-            }
+    function convertItTags (input) {
+        return input.replace(/\{it\}/g, "<em>").replace(/\{\/it\}/g, "</em>")
+    }
 
-            return {
-                partOfSpeech: meaning.fl,
-                definitions: meaning.def[0].sseq.map((def, i) => {
-                    const entry = def[0][1].dt
-        
-                    const sentence = (() => {
-                        if (entry[1]) {
-                            return convertItTags(entry[1][1][0].t)
-                        } else {
-                            return null
-                        }
-                    })();
-        
-                    return {
-                        def: convertItTags(entry[0][1]),
-                        sentence
-                    }
+    /**
+     * Format API data
+     * @returns [{ partOfSpeech, definiton, entry }]
+     * */
+    const meanings = (() => {
+        const definitions = [];
+
+        data.forEach(entry => {
+            const partOfSpeech = entry.fl;
+
+            entry.def[0].sseq.forEach((def) => {
+                definitions.push({
+                    partOfSpeech,
+                    definition: convertItTags(def[0][1].dt[0][1]),
+                    entry: def[0][1]
                 })
-            }
+            })
         })
+
+        return definitions
     })();
 
     return (
-        <article>
-            <h2>Word</h2>
-            <h3>{word}</h3>
+        <section>
+            <h2>{word}</h2>
+            <ol>
             {meanings.map((meaning, i) => (
-                <div key={i}>
-                    <div>{meaning.partOfSpeech}</div>
-                    <ol>
-                        {meaning.definitions.map((def, i) => (
-                            <li key={i}>
-                                <span
-                                    dangerouslySetInnerHTML={{
-                                        __html: def.def
-                                    }}
-                                />
-                                <div className="sample-sentence"
-                                    dangerouslySetInnerHTML={{
-                                        __html: def.sentence
-                                    }}
-                                />
-                            </li>
-                        ))}
-                    </ol>
-                </div>
+                <li key={i} role="article">
+                    <div className="meaning">
+                        <span className="part-of-speech">({meaning.partOfSpeech})</span>
+                        <span
+                            className="definiton"
+                            dangerouslySetInnerHTML={{
+                                __html: meaning.definition
+                            }}
+                        />
+                    </div>
+                    <Nyms
+                        data={data}
+                        meaning={meaning}
+                        handleSearch={handleSearch}
+                    />
+                </li>
             ))}
-        </article>
+            </ol>
+        </section>
     )
 }
 

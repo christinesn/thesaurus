@@ -1,68 +1,52 @@
 import './Nyms.css';
-import convertItTags from './helpers/convertItTags';
 
-function Nyms ({ data, type = "syn", handleSearch }) {
-    const list = type === "syn" ? "syn_list" : "ant_list";
+function Nyms ({ meaning, handleSearch }) {
+    function makeNymsList (list_types) {
+        const nyms = []
 
-    const meanings = (() => {
-        const entries = data.map(meaning => {
-            return meaning.def[0].sseq.map(entry => {
-                const def = convertItTags(entry[0][1].dt[0][1]);
-                let nymsList = entry[0][1][list];
-    
-                if (!nymsList) {
-                    if (type === "syn") {
-                        nymsList = entry[0][1].sim_list
-    
-                        if (!nymsList) return null
-                    } else {
-                        return null
-                    }
-                }
-    
-                const nyms = nymsList.flat().map(nym => nym.wd);
-    
-                return {
-                    def,
-                    nyms,
-                    partOfSpeech: meaning.fl
-                }
-            })
-        })
+        list_types.forEach(list => {
+            if (meaning.entry[list]) {
+                meaning.entry[list][0].forEach(nym => nyms.push(nym.wd));
+            }
+        });
 
-        return entries.flat().filter(entry => entry !== null);
-    })();
-
-    if (meanings.length === 0) {
-        return null
+        return [...new Set(nyms)]
     }
 
+    const synonyms = makeNymsList(["syn_list", "rel_list", "sim_list"]);
+    const antonyms = makeNymsList(["ant_list", "near_list", "opp_list"]);
+
     return (
-        <article>
-            <h2>{type === "syn" ? "Synonyms" : "Antonyms"}</h2>
-            <div>
-                {meanings.map((meaning, i) => (
-                    <div key={i} className="meaning-section">
-                        <div className="meaning"
-                            dangerouslySetInnerHTML={{
-                                __html: `<span>(${meaning.partOfSpeech})</span> ${meaning.def}`
-                            }}
-                        />
-                        <div className="nyms">
-                            {meaning.nyms.map((nym, nym_i) => (
-                                <button
-                                    className="nym-entry"
-                                    key={nym_i}
-                                    onClick={() => handleSearch(nym)}
-                                >
-                                    {nym}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-                ))}
-            </div>
-        </article>
+        <div className="nyms-listing">
+            {synonyms.length ? (
+                <div className="nyms">
+                    {synonyms.map((syn, i) => (
+                        <button
+                            key={i}
+                            className="nym syn"
+                            onClick={() => handleSearch(syn)}
+                            title={"Synonym: " + syn}
+                        >
+                            {syn}
+                        </button>
+                    ))}
+                </div>
+            ) : ""}
+            {antonyms.length ? (
+                <div className="nyms">
+                    {antonyms.map((ant, i) => (
+                        <button
+                            key={i}
+                            className="nym ant"
+                            onClick={() => handleSearch(ant)}
+                            title={"Antonym: " + ant}
+                        >
+                            {ant}
+                        </button>
+                    ))}
+                </div>
+            ) : ""}
+        </div>
     )
 }
 
