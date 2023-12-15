@@ -1,52 +1,77 @@
 import './Nyms.css';
+import { Fragment } from 'react';
 
-function Nyms ({ meaning, handleSearch }) {
-    function makeNymsList (list_types) {
-        const nyms = []
+function Nyms ({ type = "syn", searched, data, handleSearch }) {
+    const synLists = ["syn_list", "rel_list", "sim_list"];
+    const antLists = ["ant_list", "near_list", "opp_list"];
 
-        list_types.forEach(list => {
-            if (meaning.entry[list]) {
-                meaning.entry[list][0].forEach(nym => nyms.push(nym.wd));
+    /**
+     * @returns [{ partOfSpeech: "noun", nyms: [] }]
+     */
+    function makeNyms () {
+        const lists = type === "syn" ? synLists : antLists
+        const nyms = [];
+
+        data.forEach(el => {
+            const entry = {
+                partOfSpeech: el.fl,
+                nyms: []
+            };
+
+            if (el.meta.id !== searched) {
+                return
             }
-        });
 
-        return [...new Set(nyms)]
+            el.def.forEach(def => {
+                const defLists = def.sseq[0][0][1];
+
+                lists.forEach(list => {
+                    if (defLists[list]) {
+                        defLists[list][0].forEach(nym => {
+                            entry.nyms.push(nym.wd);
+                        })
+                    }
+                })
+            });
+
+            nyms.push(entry)
+        })
+
+        return nyms
     }
 
-    const synonyms = makeNymsList(["syn_list", "rel_list", "sim_list"]);
-    const antonyms = makeNymsList(["ant_list", "near_list", "opp_list"]);
+    const nyms = makeNyms();
+    
+    function aOrAn (partOfSpeech) {
+        if (partOfSpeech === "adjective" || partOfSpeech === "adverb") {
+            return "an"
+        }
+
+        return "a"
+    }
 
     return (
-        <div className="nyms-listing">
-            {synonyms.length ? (
-                <div className="nyms">
-                    {synonyms.map((syn, i) => (
-                        <button
-                            key={i}
-                            className="nym syn"
-                            onClick={() => handleSearch(syn)}
-                            title={"Synonym: " + syn}
-                        >
-                            {syn}
-                        </button>
-                    ))}
-                </div>
-            ) : ""}
-            {antonyms.length ? (
-                <div className="nyms">
-                    {antonyms.map((ant, i) => (
-                        <button
-                            key={i}
-                            className="nym ant"
-                            onClick={() => handleSearch(ant)}
-                            title={"Antonym: " + ant}
-                        >
-                            {ant}
-                        </button>
-                    ))}
-                </div>
-            ) : ""}
-        </div>
+        <section className={"nyms " + type}>
+            <h3>{type === "syn" ? "Synonyms" : "Antonyms"}</h3>
+            {nyms.map(entry => (
+                <Fragment key={entry.partOfSpeech}>
+                    {nyms.length > 1 ? (
+                        <div>as {aOrAn(entry.partOfSpeech)} <em>{entry.partOfSpeech}</em></div>
+                    ) : ""}
+                    <div>
+                        {entry.nyms.map(nym => (
+                            <button
+                                className={"nym " + type}
+                                onClick={() => handleSearch(nym)}
+                                key={nym}
+                            >
+                                {nym}
+                            </button>
+                        ))}
+                    </div>
+                </Fragment>
+            ))}
+        </section>
     )
 }
 

@@ -1,20 +1,19 @@
 import './App.css';
-import { useRef, useState, Fragment } from 'react';
+import { useState, Fragment } from 'react';
 import fetchData from './helpers/fetchData';
-import singleDef from './sampleData/singleDef';
-import multipleDefs from './sampleData/multipleDefs';
+import multiplePoS from './sampleData/multiplePoS';
 import Word from './Word';
-import Nyms from './Nyms';
 import WordNotFound from './WordNotFound';
+import Header from './Header';
+import Nyms from './Nyms';
 
 function App () {
-    const ref = useRef(null)
-
-    const [data, setData] = useState(null)
+    const [data, setData] = useState(multiplePoS)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
     const [offensive, setOffensive] = useState(false)
     const [notFound, setNotFound] = useState(false)
+    const [searched, setSearched] = useState("inferior")
 
     async function handleSearch (input) {
         setOffensive(false)
@@ -31,6 +30,7 @@ function App () {
         try {
             const response = await fetchData(input)
             setData(response)
+            setSearched(input.toLowerCase())
 
             if (process.env.NODE_ENV === "development") {
                 console.log("response:", response)
@@ -41,10 +41,6 @@ function App () {
             if (wordNotFound) setNotFound(true)
 
             setOffensive(wordNotFound ? false : response[0].meta.offensive)
-
-            if (!wordNotFound) {
-                ref.current.value = "";
-            }
         } catch (error) {
             setError(error)
         }
@@ -56,35 +52,19 @@ function App () {
         }
     }
 
-    async function handleSubmit (e) {
-        e.preventDefault();
-        handleSearch(ref.current.value);
-    }
-
     return (
         <div>
-            <form onSubmit={handleSubmit}>
-                <input type="text" ref={ref}></input>
-                <button type="submit">Search</button>
-            </form>
+            <Header handleSearch={handleSearch} />
             {!loading && !error && notFound && <WordNotFound data={data} handleSearch={handleSearch} />}
-            {!loading && !error && offensive && (
-                <div>Offensive.</div>
-            )}
+            {!loading && !error && offensive && <div>Offensive.</div>}
             {!loading && !error && data && !offensive && !notFound && (
                 <Fragment>
                     <Word data={data} />
-                    <Nyms data={data} handleSearch={handleSearch} type="syn" />
-                    <Nyms data={data} handleSearch={handleSearch} type="ant" />
+                    <Nyms type="syn" data={data} handleSearch={handleSearch} searched={searched} />
+                    <Nyms type="ant" data={data} handleSearch={handleSearch} searched={searched} />
                 </Fragment>
             )}
-            <br /><br /><br />
-            <div>Loading: {loading.toString()}</div>
-            <div>Offensive: {offensive.toString()}</div>
-            <div>Not found: {notFound.toString()}</div>
-            <div>Error: {error && error.message}</div>
-            <div>Data:</div>
-            <pre>{JSON.stringify(data, null, 2)}</pre>
+            {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
         </div>
     )
 }
