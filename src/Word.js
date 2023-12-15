@@ -1,59 +1,82 @@
 import './Word.css';
-import Nyms from './Nyms';
 
-function Word ({ data, handleSearch }) {
+function Word ({ data }) {
     const word = data[0].hwi.hw;
 
-    function convertItTags (input) {
-        return input.replace(/\{it\}/g, "<em>").replace(/\{\/it\}/g, "</em>")
-    }
-
     /**
-     * Format API data
-     * @returns [{ partOfSpeech, definiton, entry }]
+     * Extract definitions from API data
+     * @returns [{ partOfSpeech, definitons: [] }]
      * */
-    const meanings = (() => {
+    function getDefinitions () {
         const definitions = [];
 
         data.forEach(entry => {
-            const partOfSpeech = entry.fl;
+            /**
+             * API data includes definitions for words with the same stem;
+             * for this, if the entry doesn't match the searched word exactly,
+             * don't include it
+             * */
+            if (entry.meta.id !== word) return
 
-            entry.def[0].sseq.forEach((def) => {
-                definitions.push({
-                    partOfSpeech,
-                    definition: convertItTags(def[0][1].dt[0][1]),
-                    entry: def[0][1]
-                })
+            const partOfSpeech = entry.fl;
+            const defs = [];
+
+            entry.shortdef.forEach(def => {
+                defs.push(def)
+            })
+
+            definitions.push({
+                partOfSpeech,
+                definitions: [...new Set(defs)] /* Defs should be unique */
             })
         })
 
-        return definitions
-    })();
+        if (process.env.NODE_ENV === "development") {
+            console.log("Definitions:", definitions);
+        }
+
+        return mergePoSEntries(definitions)
+    }
+
+    /**
+     * Merge entries with the same part of speech.
+     */
+    function mergePoSEntries (definitions) {
+        const entries = []
+
+        definitions.forEach(def => {
+            /** Don't repeat if part of speech was already filtered */
+            if (entries.filter(el => el.partOfSpeech === def.partOfSpeech).length) {
+                return
+            }
+
+            const samePoS = definitions.filter(el => el.partOfSpeech === def.partOfSpeech);
+            
+            entries.push({
+                partOfSpeech: def.partOfSpeech,
+                definitions: [...new Set(samePoS.flatMap(el => el.definitions))]
+            })
+        })
+
+        return entries
+    }
+
+    const definitions = getDefinitions();
 
     return (
-        <section>
+        <article className="word">
             <h2>{word}</h2>
-            <ol>
-            {meanings.map((meaning, i) => (
-                <li key={i} role="article">
-                    <div className="meaning">
-                        <span className="part-of-speech">({meaning.partOfSpeech})</span>
-                        <span
-                            className="definiton"
-                            dangerouslySetInnerHTML={{
-                                __html: meaning.definition
-                            }}
-                        />
-                    </div>
-                    <Nyms
-                        data={data}
-                        meaning={meaning}
-                        handleSearch={handleSearch}
-                    />
-                </li>
+            {definitions.map((entry, i) => (
+                <div className="definition-section" key={i}>
+                    <div className="part-of-speech">{entry.partOfSpeech}</div>
+                    <ol>
+                        {entry.definitions.map((def, def_i) => (
+                            <li key={def_i}>{def}</li>
+                        ))}
+                    </ol>
+                </div>
             ))}
-            </ol>
-        </section>
+        </article>
     )
 }
 

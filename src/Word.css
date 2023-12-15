@@ -1,15 +1,29 @@
-li {
-    margin-bottom: 1em;
+.word {
+    width: 100%;
+    padding: 1em;
+    background: var(--grey-background);
 }
 
-li:last-of-type {
-    margin-bottom: 0;
+.word h2 {
+    margin: 0;
+    font-size: 1.3em;
 }
 
-.meaning {
+.definition-section {
+    padding: 0 1em 0 0.5em;
+}
+
+.part-of-speech {
+    font-style: italic;
+    margin-bottom: 0.25em;
+}
+
+ol {
+    margin: 0;
     margin-bottom: 0.5em;
 }
 
-.part-of-speech:after {
-    content: " ";
+li {
+    padding-left: 0.5em;
+    line-height: 125%;
 }
