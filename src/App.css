@@ -1,12 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@400;700&display=swap');
+
+:root {
+    --primary-font: "Lato", sans-serif;
+    --display-font: "Merriweather", serif;
+    --main-text-color: #232D2F;
+    --light-text-color: #FFFFFF;
+    --grey-background: #f8f8f8;
+
+    --primary-color: #164050;
+    --secondary-color: #40798C;
+    --tertiary-color: #7adfb0;
+}
+
 * {
     box-sizing: border-box;
 }
 
 body {
     font-size: 14pt;
-    font-family: Arial, sans-serif;
+    font-family: var(--primary-font);
+    margin: 0;
+    color: var(--main-text-color);
 }
 
 button:not(:disabled) {
     cursor: pointer;
+}
+
+h1, h2, h3 {
+    font-family: var(--display-font);
 }
