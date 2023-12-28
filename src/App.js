@@ -6,6 +6,7 @@ import Word from './Word';
 import WordNotFound from './WordNotFound';
 import Header from './Header';
 import Nyms from './Nyms';
+import Footer from './Footer';
 
 function App () {
     const [data, setData] = useState(multiplePoS)
@@ -59,12 +60,13 @@ function App () {
             {!loading && !error && offensive && <div>Offensive.</div>}
             {!loading && !error && data && !offensive && !notFound && (
                 <Fragment>
-                    <Word data={data} />
+                    <Word data={data} searched={searched} />
                     <Nyms type="syn" data={data} handleSearch={handleSearch} searched={searched} />
                     <Nyms type="ant" data={data} handleSearch={handleSearch} searched={searched} />
                 </Fragment>
             )}
             {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
+            <Footer />
         </div>
     )
 }
