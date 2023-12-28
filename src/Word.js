@@ -34,7 +34,7 @@ function Word ({ data, searched }) {
         if (process.env.NODE_ENV === "development") {
             console.log("Definitions:", definitions);
         }
-        
+
         return definitions
     }
 
