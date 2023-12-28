@@ -22,6 +22,7 @@ body {
     font-family: var(--primary-font);
     margin: 0;
     color: var(--main-text-color);
+    background: var(--primary-color);
 }
 
 button:not(:disabled) {
