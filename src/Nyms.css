@@ -1,21 +1,38 @@
 .nyms {
     width: 100%;
-    padding: 2em 1em;
+    padding: 1em;
 }
 
-.nyms.syn {
-    background-color: rgb(221, 243, 233);
+.nyms:first-of-type {
+    margin-top: 0.5em;
 }
 
-.nyms.ant {
-    background-color: rgb(245, 223, 223);
+.nyms:last-of-type {
+    margin-bottom: 1em;
 }
 
 h3 {
     margin: 0;
-    font-size: 0.9em;
+    font-size: 1em;
     text-transform: uppercase;
     opacity: 0.7;
+    margin-bottom: 0.5em;
+}
+
+.nyms-section {
+    margin-top: 1em;
+    width: 100%;
+    padding: 0 0 0 1em;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    column-gap: 0.75em;
+    row-gap: 0.5em;
+}
+
+.nym-container {
+    width: 40%;
+    flex: 0 0 auto;
 }
 
 .nym {
@@ -23,4 +40,18 @@ h3 {
     background: none;
     border: none;
     font-size: 1em;
+    padding: 0;
+    font-family: var(--main-font);
+    font-weight: 600;
+    color: white;
+    padding: 0.25em 0.5em;
+    border-radius: 0.5em;
+}
+
+.nym.syn {
+    background-color: var(--secondary-color);
+}
+
+.nym.ant {
+    background-color: var(--quarternary-color);
 }

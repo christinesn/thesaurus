@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&family=Merriweather:wght@400;700&display=swap');
 
 :root {
     --primary-font: "Lato", sans-serif;
@@ -10,6 +10,7 @@
     --primary-color: #164050;
     --secondary-color: #40798C;
     --tertiary-color: #7adfb0;
+    --quarternary-color: #3e8061;
 }
 
 * {
