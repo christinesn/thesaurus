@@ -1,6 +1,6 @@
 import './Word.css';
 
-function Word ({ data }) {
+function Word ({ data, searched }) {
     const word = data[0].hwi.hw;
 
     /**
@@ -16,7 +16,7 @@ function Word ({ data }) {
              * for this, if the entry doesn't match the searched word exactly,
              * don't include it
              * */
-            if (entry.meta.id !== word) return
+            if (entry.meta.id !== searched) return
 
             const partOfSpeech = entry.fl;
             const defs = [];
@@ -34,31 +34,8 @@ function Word ({ data }) {
         if (process.env.NODE_ENV === "development") {
             console.log("Definitions:", definitions);
         }
-
-        return mergePoSEntries(definitions)
-    }
-
-    /**
-     * Merge entries with the same part of speech.
-     */
-    function mergePoSEntries (definitions) {
-        const entries = []
-
-        definitions.forEach(def => {
-            /** Don't repeat if part of speech was already filtered */
-            if (entries.filter(el => el.partOfSpeech === def.partOfSpeech).length) {
-                return
-            }
-
-            const samePoS = definitions.filter(el => el.partOfSpeech === def.partOfSpeech);
-            
-            entries.push({
-                partOfSpeech: def.partOfSpeech,
-                definitions: [...new Set(samePoS.flatMap(el => el.definitions))]
-            })
-        })
-
-        return entries
+        
+        return definitions
     }
 
     const definitions = getDefinitions();
