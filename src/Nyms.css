@@ -1,14 +1,15 @@
 .nyms {
     width: 100%;
     padding: 1em;
+    background-color: var(--light-text-color);
 }
 
 .nyms:first-of-type {
-    margin-top: 0.5em;
+    padding-top: 1.5em;
 }
 
 .nyms:last-of-type {
-    margin-bottom: 1em;
+    padding-bottom: 2em;
 }
 
 h3 {
