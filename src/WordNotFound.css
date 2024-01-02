@@ -1,7 +1,21 @@
-.suggestion:after {
-    content: ", ";
+.not-found {
+    background: white;
+    padding: 2em;
+    width: 100%;
+    min-height: 50vh;
 }
 
-.suggestion:last-of-type:after {
-    content: "";
+.not-found-prompt {
+    font-size: 1.1em;
+    margin-bottom: 1.5em;
 }
+
+.searched {
+    font-weight: bold;
+    color: var(--secondary-color);
+}
+
+.suggestion {
+    background-color: var(--secondary-color);
+}
+
