@@ -4,6 +4,7 @@ import fetchData from './helpers/fetchData';
 import multiplePoS from './sampleData/multiplePoS';
 import Word from './Word';
 import WordNotFound from './WordNotFound';
+import Loading from './Loading';
 import Header from './Header';
 import Nyms from './Nyms';
 import Footer from './Footer';
@@ -56,16 +57,34 @@ function App () {
     return (
         <div>
             <Header handleSearch={handleSearch} />
-            {!loading && !error && notFound && <WordNotFound data={data} handleSearch={handleSearch} />}
-            {!loading && !error && offensive && <div>Offensive.</div>}
+            {loading && <Loading />}
+            {!loading && !error && (notFound || offensive) && (
+                <WordNotFound
+                    data={data}
+                    handleSearch={handleSearch}
+                    offensive={offensive}
+                />
+            )}
             {!loading && !error && data && !offensive && !notFound && (
                 <Fragment>
-                    <Word data={data} searched={searched} />
-                    <Nyms type="syn" data={data} handleSearch={handleSearch} searched={searched} />
-                    <Nyms type="ant" data={data} handleSearch={handleSearch} searched={searched} />
+                    <Word
+                        data={data}
+                        searched={searched}
+                    />
+                    <Nyms
+                        type="syn"
+                        data={data}
+                        handleSearch={handleSearch}
+                        searched={searched}
+                    />
+                    <Nyms
+                        type="ant"
+                        data={data}
+                        handleSearch={handleSearch}
+                        searched={searched}
+                    />
                 </Fragment>
             )}
-            {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
             <Footer />
         </div>
     )
