@@ -62,6 +62,7 @@ function App () {
                 <WordNotFound
                     data={data}
                     handleSearch={handleSearch}
+                    searched={searched}
                     offensive={offensive}
                 />
             )}
