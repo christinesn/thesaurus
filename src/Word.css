@@ -15,11 +15,12 @@
 
 .part-of-speech {
     font-style: italic;
-    margin-bottom: 0.5em;
+    margin-bottom: 0.25em;
 }
 
 ol {
     margin: 0;
+    margin-bottom: 0.25em;
 }
 
 li {
