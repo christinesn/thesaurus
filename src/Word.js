@@ -16,7 +16,7 @@ function Word ({ data, searched }) {
              * for this, if the entry doesn't match the searched word exactly,
              * don't include it
              * */
-            if (entry.meta.id !== searched) return
+            if (entry.meta.id.toLowerCase() !== searched.toLowerCase()) return
 
             const partOfSpeech = entry.fl;
             const defs = [];

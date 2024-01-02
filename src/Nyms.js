@@ -9,11 +9,11 @@ function Nyms ({ type = "syn", searched, data, handleSearch }) {
      */
     function makeNyms () {
         const lists = type === "syn" ? synLists : antLists
-        const nyms = [];
+        let nyms = [];
 
         data.forEach(el => {
             /** If the entry doesn't match the searched word exactly, don't include */
-            if (el.meta.id !== searched) {
+            if (el.meta.id.toLowerCase() !== searched.toLowerCase()) {
                 return
             }
 
@@ -29,6 +29,9 @@ function Nyms ({ type = "syn", searched, data, handleSearch }) {
                 })
             });
         })
+
+        /** Nyms should be unique */
+        nyms = [...new Set(nyms)];
 
         return nyms
     }
