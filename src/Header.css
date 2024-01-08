@@ -1,65 +1,24 @@
 header {
     height: 82px;
     width: 100%;
-    top: 0;
-    right: 0;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    padding: 0 1.5em;
+    column-gap: 1.5em;
     background: var(--primary-color);
     color: var(--light-text-color);
     border-bottom: 2px solid var(--tertiary-color);
 }
 
-.input-container {
-    display: flex;
-    justify-content: stretch;
-    background: white;
-    border-radius: 1.5em;
-    border: 5px solid var(--secondary-color);
-}
-
-.input-container:focus-within {
-    outline: var(--tertiary-color) solid 2px;
-    outline-offset: 0px;
-}
-
-input {
-    font-size: 1em;
-    padding: 0.25em 1em;
-    border-radius: 1em;
-    font-family: var(--display-font);
-    border: none;
-}
-
-input:focus, input:focus-visible {
-    outline: none;
-}
-
-.submit {
+.return-home {
+    flex: 0 1 auto;
     background: none;
     border: none;
-    font-size: 1.1em;
-    padding: 0.5em 1em 0.25em 0.95em;
-    border-radius: 0 1em 1em 0;
-    flex: 0 0 auto;
-}
-
-.submit svg {
-    fill: var(--main-text-color);
-    height: 20px;
-    width: 20px;
-}
-
-.submit:focus,
-.submit:focus-visible {
-    outline: var(--tertiary-color) solid 2px;
-    outline-offset: 0px;
-}
-
-.submit:focus svg,
-.submit:focus-visible svg,
-.submit:hover svg,
-.submit:active svg {
-    fill: var(--secondary-color);
+    color: var(--light-text-color);
+    font-size: 1.5em;
+    font-weight: bold;
+    font-family: var(--display-font);
+    text-shadow: 2px 2px 2px var(--tertiary-color);
+    padding: 0;
 }

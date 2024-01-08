@@ -11,6 +11,7 @@ import Welcome from './Welcome';
 
 function App ({
     handleSearch,
+    returnHome,
     data,
     loading,
     error,
@@ -20,8 +21,10 @@ function App ({
 }) {
     return (
         <div className="app">
-            <Header handleSearch={handleSearch} />
-            {!loading && !error && !data && !notFound && !offensive && <Welcome handleSearch={handleSearch} />}
+            <Header handleSearch={handleSearch} returnHome={returnHome} />
+            {!loading && !error && !data && !notFound && !offensive && (
+                <Welcome handleSearch={handleSearch}/>
+            )}
             {loading && <Loading />}
             {error && <ErrorMessage error={error} />}
             {!loading && !error && (notFound || offensive) && (

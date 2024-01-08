@@ -1,16 +1,7 @@
 import './Header.css';
-import SearchIcon from './icons/SearchIcon';
-import { useRef } from 'react';
+import SearchForm from './SearchForm';
 
 function Header ({ handleSearch, returnHome }) {
-    const ref = useRef(null);
-
-    function handleSubmit (e) {
-        e.preventDefault();
-        handleSearch(ref.current.value);
-        ref.current.value = "";
-    }
-
     return (
         <header>
             <button
@@ -18,16 +9,9 @@ function Header ({ handleSearch, returnHome }) {
                 onClick={returnHome}
                 title="Home"
             >
-                Th.
+                th.
             </button>
-            <form onSubmit={handleSubmit}>
-                <div className="input-container">
-                    <input type="text" ref={ref} placeholder="Search thesaurus" />
-                    <button type="submit" className="submit">
-                        <SearchIcon />
-                    </button>
-                </div>
-            </form>
+            <SearchForm handleSearch={handleSearch} />
         </header>
     )
 }

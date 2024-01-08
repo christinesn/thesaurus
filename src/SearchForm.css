@@ -1,0 +1,62 @@
+form {
+    flex: 1 1 auto;
+    display: flex;
+}
+
+.input-container {
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: stretch;
+    background: white;
+    border-radius: 1.5em;
+    border: 5px solid var(--secondary-color);
+}
+
+input {
+    flex: 0 1 auto;
+    font-size: 1em;
+    padding: 0.25em 1em;
+    border-radius: 1em;
+    font-family: var(--display-font);
+    border: none;
+    width: 80%;
+}
+
+.submit {
+    flex: 0 0 auto;
+    background: none;
+    border: none;
+    font-size: 1.1em;
+    padding: 0.5em 1em 0.25em 0.95em;
+    border-radius: 0 1em 1em 0;
+    flex: 0 0 auto;
+}
+
+.submit svg {
+    fill: var(--main-text-color);
+    height: 20px;
+    width: 20px;
+}
+
+/* Focus & hover states */
+.input-container:focus-within {
+    outline: var(--tertiary-color) solid 2px;
+    outline-offset: 0px;
+}
+
+input:focus, input:focus-visible {
+    outline: none;
+}
+
+.submit:focus,
+.submit:focus-visible {
+    outline: var(--tertiary-color) solid 2px;
+    outline-offset: 0px;
+}
+
+.submit:focus svg,
+.submit:focus-visible svg,
+.submit:hover svg,
+.submit:active svg {
+    fill: var(--secondary-color);
+}
