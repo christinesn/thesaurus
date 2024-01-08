@@ -55,3 +55,11 @@ h3 {
 .nym.ant {
     background-color: var(--quarternary-color);
 }
+
+.nym:hover {
+    opacity: 0.9;
+}
+
+.nym:focus, .nym:focus-visible {
+    outline: var(--primary-color) solid 3px;
+}
