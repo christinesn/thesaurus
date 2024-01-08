@@ -2,7 +2,7 @@ import './Header.css';
 import SearchIcon from './icons/SearchIcon';
 import { useRef } from 'react';
 
-function Header ({ handleSearch }) {
+function Header ({ handleSearch, returnHome }) {
     const ref = useRef(null);
 
     function handleSubmit (e) {
@@ -13,6 +13,13 @@ function Header ({ handleSearch }) {
 
     return (
         <header>
+            <button
+                className="return-home"
+                onClick={returnHome}
+                title="Home"
+            >
+                Th.
+            </button>
             <form onSubmit={handleSubmit}>
                 <div className="input-container">
                     <input type="text" ref={ref} placeholder="Search thesaurus" />

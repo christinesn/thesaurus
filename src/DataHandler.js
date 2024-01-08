@@ -52,9 +52,20 @@ function DataHandler () {
         }
     }
 
+    /** Return to the welcome page */
+    function returnHome () {
+        setLoading(false)
+        setError(false)
+        setNotFound(false)
+        setOffensive(false)
+        setSearched(null)
+        setData(null)
+    }
+
     return (
         <App
             handleSearch={handleSearch}
+            returnHome={returnHome}
             data={data}
             loading={loading}
             error={error}
