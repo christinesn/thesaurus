@@ -5,7 +5,10 @@ const exampleWords = [
     "scary",
     "glamorous",
     "immense",
-    "defeated"
+    "defeated",
+    "zealous",
+    "grumpy",
+    "fierce"
 ]
 
 function Welcome ({ handleSearch }) {
@@ -14,7 +17,7 @@ function Welcome ({ handleSearch }) {
             <div className="big-welcome">thesaurii.</div>
             <div className="welcome-description">A simple thesaurus app.</div>
             <div className="prompt">Can't decide where to start? Try one of these words.</div>
-            <div className="examples nyms">
+            <div className="examples nyms-section">
                 {exampleWords.map(word => (
                     <div className="nym-container">
                         <button class="nym syn" onClick={() => handleSearch(word)}>
