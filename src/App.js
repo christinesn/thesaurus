@@ -8,6 +8,7 @@ import Header from './Header';
 import Nyms from './Nyms';
 import Footer from './Footer';
 import ErrorMessage from './ErrorMessage';
+import Welcome from './Welcome';
 
 function App () {
     const [data, setData] = useState(null)
@@ -62,6 +63,7 @@ function App () {
     return (
         <div className="app">
             <Header handleSearch={handleSearch} />
+            {!loading && !error && !data && !notFound && !offensive && <Welcome handleSearch={handleSearch} />}
             {loading && <Loading />}
             {error && <ErrorMessage error={error} />}
             {!loading && !error && (notFound || offensive) && (
