@@ -15,7 +15,7 @@ function SearchForm ({ handleSearch }) {
         <form onSubmit={handleSubmit}>
             <div className="input-container">
                 <input type="text" ref={ref} placeholder="Search thesaurus" />
-                <button type="submit" className="submit">
+                <button type="submit" className="submit" title="Search">
                     <SearchIcon />
                 </button>
             </div>

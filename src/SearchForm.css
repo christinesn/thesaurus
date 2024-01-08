@@ -6,7 +6,7 @@ form {
 .input-container {
     flex: 1 1 auto;
     display: flex;
-    justify-content: stretch;
+    justify-content: space-between;
     background: white;
     border-radius: 1.5em;
     border: 5px solid var(--secondary-color);
@@ -23,7 +23,6 @@ input {
 }
 
 .submit {
-    flex: 0 0 auto;
     background: none;
     border: none;
     font-size: 1.1em;
@@ -52,6 +51,7 @@ input:focus, input:focus-visible {
 .submit:focus-visible {
     outline: var(--tertiary-color) solid 2px;
     outline-offset: 0px;
+    background: rgba(0,0,0,0.1);
 }
 
 .submit:focus svg,

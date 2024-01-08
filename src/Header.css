@@ -20,5 +20,14 @@ header {
     font-weight: bold;
     font-family: var(--display-font);
     text-shadow: 2px 2px 2px var(--tertiary-color);
-    padding: 0;
+    padding: 0.3em;
+}
+
+.return-home:hover, .return-home:focus {
+    text-shadow: 3px 3px 0px var(--tertiary-color);
+}
+
+.return-home:focus, .return-home:focus-visible {
+    border-radius: 50%;
+    outline: var(--tertiary-color) solid 2px;
 }
