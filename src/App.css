@@ -57,6 +57,6 @@ h1, h2, h3 {
 
 @media screen and (min-width: 1024px) {
     .nyms-container {
-        padding: 0 1em;
+        padding: 0 2em;
     }
 }
