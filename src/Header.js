@@ -17,7 +17,7 @@ function Header ({ handleSearch, returnHome }) {
                     onClick={returnHome}
                     title="Home"
                 >
-                    thesaurii.
+                    thesaurus.
                 </button>
                 <SearchForm handleSearch={handleSearch} />
             </div>
