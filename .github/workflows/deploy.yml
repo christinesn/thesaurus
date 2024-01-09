@@ -21,7 +21,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  REACT_APP_API_KEY: ${{ secrets.REACT_APP_API_KEY }}
+  REACT_APP_API_KEY: ${{ vars.API_KEY }}
   
 jobs:
   # Build job
