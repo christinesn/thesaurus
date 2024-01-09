@@ -41,19 +41,21 @@ function Word ({ data, searched }) {
     const definitions = getDefinitions();
 
     return (
-        <article className="word">
-            <h2>{word}</h2>
-            {definitions.map((entry, i) => (
-                <div className="definition-section" key={i}>
-                    <div className="part-of-speech">{entry.partOfSpeech}</div>
-                    <ol>
-                        {entry.definitions.map((def, def_i) => (
-                            <li key={def_i}>{def}</li>
-                        ))}
-                    </ol>
-                </div>
-            ))}
-        </article>
+        <div className="word-container">
+            <article className="word">
+                <h2>{word}</h2>
+                {definitions.map((entry, i) => (
+                    <div className="definition-section" key={i}>
+                        <div className="part-of-speech">{entry.partOfSpeech}</div>
+                        <ol>
+                            {entry.definitions.map((def, def_i) => (
+                                <li key={def_i}>{def}</li>
+                            ))}
+                        </ol>
+                    </div>
+                ))}
+            </article>
+        </div>
     )
 }
 

@@ -1,6 +1,11 @@
 .error {
-    background: white;
     padding: 2em;
     width: 100%;
-    min-height: 50vh;
+}
+
+@media screen and (min-width: 640px) {
+    .error {
+        width: calc(640px - 4em);
+        margin: auto;
+    }
 }

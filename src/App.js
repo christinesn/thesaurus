@@ -21,40 +21,49 @@ function App ({
 }) {
     return (
         <div className="app">
-            <Header handleSearch={handleSearch} returnHome={returnHome} />
-            {!loading && !error && !data && !notFound && !offensive && (
-                <Welcome handleSearch={handleSearch}/>
-            )}
-            {loading && <Loading />}
-            {error && <ErrorMessage error={error} />}
-            {!loading && !error && (notFound || offensive) && (
-                <WordNotFound
-                    data={data}
-                    handleSearch={handleSearch}
-                    searched={searched}
-                    offensive={offensive}
-                />
-            )}
-            {!loading && !error && data && !offensive && !notFound && (
-                <Fragment>
-                    <Word
-                        data={data}
-                        searched={searched}
+            <Header
+                handleSearch={handleSearch}
+                returnHome={returnHome}
+            />
+            <div className="content-container">
+                {!loading && !error && !data && !notFound && !offensive && (
+                    <Welcome
+                        handleSearch={handleSearch}
                     />
-                    <Nyms
-                        type="syn"
+                )}
+                {loading && <Loading />}
+                {error && <ErrorMessage error={error} />}
+                {!loading && !error && (notFound || offensive) && (
+                    <WordNotFound
                         data={data}
                         handleSearch={handleSearch}
                         searched={searched}
+                        offensive={offensive}
                     />
-                    <Nyms
-                        type="ant"
-                        data={data}
-                        handleSearch={handleSearch}
-                        searched={searched}
-                    />
-                </Fragment>
-            )}
+                )}
+                {!loading && !error && data && !offensive && !notFound && (
+                    <Fragment>
+                        <Word
+                            data={data}
+                            searched={searched}
+                        />
+                        <div className="nyms-container">
+                            <Nyms
+                                type="syn"
+                                data={data}
+                                handleSearch={handleSearch}
+                                searched={searched}
+                            />
+                            <Nyms
+                                type="ant"
+                                data={data}
+                                handleSearch={handleSearch}
+                                searched={searched}
+                            />
+                        </div>
+                    </Fragment>
+                )}
+            </div>
             <Footer />
         </div>
     )

@@ -1,16 +1,22 @@
 header {
     height: 82px;
     width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     padding: 0 1.5em;
-    column-gap: 1.5em;
     background: var(--primary-color);
     color: var(--light-text-color);
     border-bottom: 2px solid var(--tertiary-color);
+    display: flex;
+    align-items: center;
 }
 
+.header-content {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 1.5em;
+}
+ 
 .return-home {
     flex: 0 1 auto;
     background: none;
@@ -21,6 +27,13 @@ header {
     font-family: var(--display-font);
     text-shadow: 2px 2px 2px var(--tertiary-color);
     padding: 0.3em;
+    border-radius: 50%;
+}
+
+.return-home.full {
+    display: none;
+    border-radius: 1em;
+    padding: 0.3em 0.4em;
 }
 
 .return-home:hover, .return-home:focus {
@@ -28,6 +41,32 @@ header {
 }
 
 .return-home:focus, .return-home:focus-visible {
-    border-radius: 50%;
     outline: var(--tertiary-color) solid 2px;
+}
+
+@media screen and (min-width: 768px) {
+    .return-home.small {
+        display: none;
+    }
+
+    .return-home.full {
+        display: block;
+    }
+
+    .header-content {
+        margin: auto;
+        width: 90%;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .header-content {
+        width: 85%;
+    }
+}
+
+@media screen and (min-width: 1536px) {
+    .header-content {
+        width: 70%
+    }
 }

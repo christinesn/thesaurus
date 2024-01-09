@@ -1,7 +1,8 @@
 .nyms {
-    width: 100%;
     padding: 1em;
-    background-color: var(--light-text-color);
+    width: 100%;
+    margin: auto;
+    flex: 0 0 auto;
 }
 
 .nyms:first-of-type {
@@ -9,7 +10,7 @@
 }
 
 .nyms:last-of-type {
-    padding-bottom: 2em;
+    padding-bottom: 3em;
 }
 
 h3 {
@@ -43,7 +44,7 @@ h3 {
     padding: 0;
     font-family: var(--main-font);
     font-weight: 600;
-    color: white;
+    color: var(--light-text-color);
     padding: 0.25em 0.5em;
     border-radius: 0.5em;
 }
@@ -62,4 +63,19 @@ h3 {
 
 .nym:focus, .nym:focus-visible {
     outline: var(--primary-color) solid 3px;
+}
+
+@media screen and (min-width: 640px) {
+    .nyms {
+        width: calc(640px - 2em);
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .nyms {
+        width: calc(500px - 4em);
+        padding-bottom: 3em;
+        padding-top: 1.5em;
+        margin: 0;
+    }
 }

@@ -4,14 +4,23 @@ import SearchForm from './SearchForm';
 function Header ({ handleSearch, returnHome }) {
     return (
         <header>
-            <button
-                className="return-home"
-                onClick={returnHome}
-                title="Home"
-            >
-                th.
-            </button>
-            <SearchForm handleSearch={handleSearch} />
+            <div className="header-content">
+                <button
+                    className="return-home small"
+                    onClick={returnHome}
+                    title="Home"
+                >
+                    th.
+                </button>
+                <button
+                    className="return-home full"
+                    onClick={returnHome}
+                    title="Home"
+                >
+                    thesaurii.
+                </button>
+                <SearchForm handleSearch={handleSearch} />
+            </div>
         </header>
     )
 }

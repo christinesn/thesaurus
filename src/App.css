@@ -1,12 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&family=Merriweather:wght@400;700&display=swap');
 
+/**
+    Breakpoints:
+    sm: 640px;
+    md: 768px;
+    lg: 1024px;
+    xl: 1280px;
+    2xl: 1536px;
+*/
+
 :root {
     --primary-font: "Lato", sans-serif;
     --display-font: "Merriweather", serif;
     --main-text-color: #232D2F;
     --light-text-color: #FFFFFF;
     --grey-background: #f8f8f8;
-
     --primary-color: #164050;
     --secondary-color: #40798C;
     --tertiary-color: #7adfb0;
@@ -18,7 +26,7 @@
 }
 
 body {
-    font-size: 14pt;
+    font-size: 16px;
     font-family: var(--primary-font);
     margin: 0;
     color: var(--main-text-color);
@@ -31,4 +39,24 @@ button:not(:disabled) {
 
 h1, h2, h3 {
     font-family: var(--display-font);
+}
+
+.content-container {
+    width: 100%;
+    background: white;
+    min-height: 75vh;
+}
+
+.nyms-container {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: normal;
+    justify-content: center;
+    width: 100%;
+}
+
+@media screen and (min-width: 1024px) {
+    .nyms-container {
+        padding: 0 1em;
+    }
 }

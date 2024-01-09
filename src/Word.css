@@ -1,7 +1,12 @@
-.word {
+.word-container {
     width: 100%;
     padding: 1em;
     background: var(--grey-background);
+}
+
+.word {
+    width: 100%;
+    margin: auto;
 }
 
 .word h2 {
@@ -26,4 +31,10 @@ ol {
 li {
     padding-left: 0.5em;
     line-height: 125%;
+}
+
+@media screen and (min-width: 640px) {
+    .word {
+        width: calc(640px - 2em);
+    }
 }
